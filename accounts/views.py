@@ -17,8 +17,10 @@ def register(request):
         if password1 == password2:
             if User.objects.filter(username=username).exists():
                 messages.info(request, 'Username already in use!')
+                return redirect('register')
             elif User.objects.filter(email=email).exists():
-                messages.info(request, 'Username already in use!')
+                messages.info(request, 'Email already in use!')
+                return redirect('register')
             else:
                 user = User.objects.create_user(username=username, password=password1, email=email,
                                                 first_name=first_name,
@@ -29,7 +31,8 @@ def register(request):
 
 
         else:
-            print("Passwords dont match")
+            messages.info(request ,'Passwords dont match')
+            return redirect('register')
 
         return redirect('/')
 
@@ -46,7 +49,7 @@ def signIn(request):
 
         if user is not None:
             auth.login(request, user)
-            return redirect("/")
+            return redirect('/')
         else:
             messages.info(request, 'Are you sure that is correct? Please try again!')
             return redirect('signIn')

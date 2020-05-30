@@ -23,4 +23,6 @@ urlpatterns = [
     #path('wtapp/', include('wtapp.urls')),
     path('', include('personal.urls')),
     path('accounts/', include('accounts.urls')),
+    path('rss/', include('rss.urls'))
+
 ]
